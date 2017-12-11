@@ -18,7 +18,20 @@ public class Client {
         Sync gameSync = new Sync(in);
         gameSync.start();
 
-
+        while (true)
+        {
+            String message = null;
+            if (gameSync.messagePending())
+            {
+                message = gameSync.getMessage();
+                System.out.println("We got a message!! : " + message);
+            }
+            if (message.equals("End"))
+            {
+                System.out.println("End message detected. Terminating client.");
+                return;
+            }
+        }
     }
 
     private static boolean conectToServer() {
@@ -26,7 +39,8 @@ public class Client {
         try {
             socket = new Socket("localhost", PORT);
         } catch (IOException e) {
-            System.out.println("Could not connect\n" + e.getMessage() + "\n(Probably means the server isn't on)");
+            System.out.println("Server not on.. Reconnecting in 5 seconds.");
+            clientUtils.sleep(5);
             return false;
         }
         System.out.println("Connection successful.");
