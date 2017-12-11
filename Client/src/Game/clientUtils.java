@@ -1,3 +1,5 @@
+package Game;
+
 public class clientUtils {
     public static void sleep(int secs)
     {
