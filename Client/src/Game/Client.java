@@ -19,7 +19,7 @@ public class Client {
             return;
         }
 
-        Sync gameSync = new Sync(in);
+        ReceiveMessages gameSync = new ReceiveMessages(in);
         gameSync.start();
 
         int ticksSinceLast = 0;
