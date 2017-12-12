@@ -23,6 +23,8 @@ public class Logs extends JPanel {
     {
         JPanel dfault = new JPanel();
 
+        box = new JTextArea();
+
         dfault.setLayout(new BorderLayout());
         dfault.add(new JLabel(title), BorderLayout.PAGE_START);
         dfault.add(box);
