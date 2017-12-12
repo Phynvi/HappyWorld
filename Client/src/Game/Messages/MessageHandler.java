@@ -2,7 +2,7 @@ package Game.Messages;
 
 public class MessageHandler {
 
-    public boolean running;
+    private boolean running;
 
     public MessageHandler()
     {
@@ -16,5 +16,9 @@ public class MessageHandler {
         {
             this.running = false;
         }
+    }
+
+    public boolean isRunning() {
+        return running;
     }
 }

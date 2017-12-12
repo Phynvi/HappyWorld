@@ -1,17 +1,26 @@
 package Game;
 
+import Game.Messages.MessageHandler;
 import Game.Messages.ReceiveMessages;
 
+import javax.swing.*;
+import java.awt.*;
 import java.io.DataInputStream;
 import java.io.IOException;
 import java.net.Socket;
 
 import static Game.clientUtils.sleep;
 
-public class Client {
+public class Client extends JFrame {
 
-    static Socket socket;
-    static DataInputStream in;
+    private static Socket socket;
+    private static DataInputStream in;
+    private static MessageHandler mh;
+
+    public Client()
+    {
+        initUI();
+    }
 
     public static void main (String args[]) {
         if (!connectToServer())
@@ -22,9 +31,23 @@ public class Client {
         ReceiveMessages gameSync = new ReceiveMessages(in);
         gameSync.start();
 
-
-        GameClient game = new GameClient(gameSync);
+        mh = new MessageHandler();
+        GameClient game = new GameClient(gameSync, mh);
         game.start();
+
+        EventQueue.invokeLater(() -> {
+            Client GameWindow = new Client();
+            GameWindow.setVisible(true);
+        });
+    }
+
+    private void initUI() {
+        add(new Board(mh));
+
+        setSize(800, 600);
+
+        setTitle("HappyWorld");
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
 
     private static boolean connectToServer() {

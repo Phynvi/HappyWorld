@@ -10,16 +10,17 @@ import static Game.clientUtils.tick;
 public class GameClient extends Thread {
 
     private ReceiveMessages gameSync;
+    MessageHandler mh;
 
-    public GameClient(ReceiveMessages sync)
+    public GameClient(ReceiveMessages sync, MessageHandler mh)
     {
         this.gameSync = sync;
+        this.mh = mh;
     }
 
     public void run()
     {
-        MessageHandler mh = new MessageHandler();
-        while (mh.running)
+        while (mh.isRunning())
         {
             String message = gameSync.getMessage();
             if (message == null)
