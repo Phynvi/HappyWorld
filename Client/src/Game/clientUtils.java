@@ -1,5 +1,7 @@
 package Game;
 
+import Game.Messages.MessageHandler;
+
 import java.io.*;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
@@ -19,7 +21,7 @@ public class clientUtils {
         sleep(GameConstants.TICK_TIME);
     }
 
-    public static void unzip(File tounzip, String destination) throws IOException {
+    public static void unzip(File tounzip, String destination, MessageHandler mh) throws IOException {
         byte[] buffer = new byte[1024];
 
         //create output directory is not exists
@@ -39,7 +41,7 @@ public class clientUtils {
             String fileName = ze.getName();
             File newFile = new File(destination + File.separator + fileName);
 
-            System.out.println("file unzip : "+ newFile.getAbsoluteFile());
+            mh.log("Unzipped file: "+ newFile.getAbsoluteFile());
 
             //create all non exists folders
             //else you will hit FileNotFoundException for compressed folder

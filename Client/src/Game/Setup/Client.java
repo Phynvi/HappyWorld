@@ -25,7 +25,7 @@ public class Client extends JFrame {
         mh = new MessageHandler();
         load = new LoadScreen();
 
-        downloadCache(load);
+        downloadCache(load, mh);
 
         connectToServer();
 

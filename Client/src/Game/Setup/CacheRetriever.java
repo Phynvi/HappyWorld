@@ -1,27 +1,32 @@
 package Game.Setup;
 
 import Game.GameConstants;
+import Game.Messages.MessageHandler;
 
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
 import java.net.URL;
 
+import static Game.GameConstants.CACHE_DIRECTORY;
 import static Game.GameConstants.CACHE_LOC;
 import static Game.GameConstants.CACHE_NAME;
 import static Game.clientUtils.unzip;
 
+/* CacheRetriever based on Elvarg RSPS' source by Professor Oak on RuneServer
+ * Download for his work can be found here: https://www.rune-server.ee/runescape-development/rs2-server/downloads/660901-economy-version-elvarg-framework-some-skills-improved-core.html
+ * Mirror: http://archive.is/ua04S
+ */
 public class CacheRetriever {
-    public static boolean downloadCache(LoadScreen load)
+    public static boolean downloadCache(LoadScreen load, MessageHandler mh)
     {
         setupCacheDir();
 
         load.setDisplay("Downloading cache..");
         try {
-            download(load);
+            download(load, mh);
         } catch (Exception e)
         {
             e.printStackTrace();
@@ -30,7 +35,7 @@ public class CacheRetriever {
 
         load.setDisplay("Unzipping cache..");
         try {
-            unzip(new File(CACHE_LOC + File.separator + CACHE_NAME), CACHE_LOC);
+            unzip(new File(CACHE_DIRECTORY + File.separator + CACHE_NAME), CACHE_DIRECTORY, mh);
         } catch (IOException e) {
             e.printStackTrace();
             return false;
@@ -39,7 +44,7 @@ public class CacheRetriever {
         return true;
     }
 
-    private static void download(LoadScreen load) throws IOException {
+    private static void download(LoadScreen load, MessageHandler mh) throws IOException {
         URL url = new URL(CACHE_LOC);
         HttpURLConnection httpConn = (HttpURLConnection) url.openConnection();
         httpConn.addRequestProperty("User-Agent", "Mozilla/4.76");
@@ -48,7 +53,7 @@ public class CacheRetriever {
         if (responseCode == HttpURLConnection.HTTP_OK) {
             // opens input stream from the HTTP connection
             InputStream inputStream = httpConn.getInputStream();
-            String saveFilePath = GameConstants.CACHE_LOC + File.separator + CACHE_NAME;
+            String saveFilePath = CACHE_DIRECTORY + File.separator + CACHE_NAME;
 
             // opens an output stream to save into file
             FileOutputStream outputStream = new FileOutputStream(saveFilePath);
@@ -68,6 +73,8 @@ public class CacheRetriever {
 
                 load.setDisplay("Downloading cache " + percentage + "% @ " + downloadSpeed + "Kb/s");
             }
+
+            mh.log("Cache downloaded at " + downloaded + "Kb/s");
 
             outputStream.close();
             inputStream.close();
