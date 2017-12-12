@@ -18,6 +18,8 @@ public class GameWindow extends JFrame {
     private JButton highscoresButton = new JButton("Highscores");
     private JButton logsButton = new JButton("Logs");
 
+    private String currentPanel;
+
     public GameWindow(MessageHandler mh)
     {
         panelCont.setLayout(layout);
@@ -26,10 +28,10 @@ public class GameWindow extends JFrame {
         logsPanel.add(new JLabel("Logs"));
 
         panelCont.add(new Board(mh), "Game");
-        panelCont.add(highscoresPanel, "Highscores");
+        panelCont.add(new Highscores(), "Highscores");
         panelCont.add(logsPanel, "Logs");
 
-        layout.show(panelCont, "Game");
+        show("Game");
 
         add(panelCont);
 
@@ -40,6 +42,11 @@ public class GameWindow extends JFrame {
         setLayout(new BorderLayout());
         add(options(), BorderLayout.PAGE_START);
         add(panelCont);
+    }
+
+    private void show(String pan) {
+        layout.show(panelCont, pan);
+        currentPanel = pan;
     }
 
     private JMenuBar options()
@@ -54,19 +61,27 @@ public class GameWindow extends JFrame {
         game.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                layout.show(panelCont, "Game");
+                show("Game");
             }
         });
         highscoresButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                layout.show(panelCont, "Highscores");
+                if (currentPanel.equals("Game"))
+                {
+                    int dialogResult = JOptionPane.showConfirmDialog (null, "Are you sure you want to leave the game?", "Leave Game?", JOptionPane.YES_NO_OPTION);
+                    if (dialogResult != JOptionPane.YES_OPTION)
+                    {
+                        return;
+                    }
+                }
+                show("Highscores");
             }
         });
         logsButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                layout.show(panelCont, "Logs");
+                show("Logs");
             }
         });
 
