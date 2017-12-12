@@ -16,7 +16,7 @@ public class Logs extends JPanel {
     public Logs(MessageHandler mh)
     {
         setLayout(new GridLayout(3,1));
-        add(setupDefaultPanel("Game Logs", logs, "Developer mode?", devMode));
+        add(setupDefaultPanel("Game Logs", logs, " Developer mode?", devMode));
         add(setupDefaultPanel("Inbound Messages", inbound));
         add(setupDefaultPanel("Outbound Messages", outbound));
 
@@ -39,11 +39,12 @@ public class Logs extends JPanel {
         {
             JPanel moreFeatures = new JPanel();
             moreFeatures.setLayout(new GridLayout(1,2));
+            moreFeatures.add(new JLabel(title));
 
             JPanel additional = new JPanel();
-            additional.setLayout(new GridLayout(1,2));
-            additional.add(additionalOption);
-            additional.add(new JLabel(additionalLabel));
+            additional.setLayout(new BorderLayout());
+            additional.add(additionalOption, BorderLayout.WEST);
+            additional.add(new JLabel(additionalLabel), BorderLayout.CENTER);
 
             moreFeatures.add(additional);
 
