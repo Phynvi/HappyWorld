@@ -11,6 +11,7 @@ import java.io.DataInputStream;
 import java.io.IOException;
 import java.net.Socket;
 
+import static Game.Setup.CacheRetriever.downloadCache;
 import static Game.clientUtils.sleep;
 
 public class Client extends JFrame {
@@ -23,6 +24,8 @@ public class Client extends JFrame {
     public static void main (String args[]) {
         mh = new MessageHandler();
         load = new LoadScreen();
+
+        downloadCache(load);
 
         connectToServer();
 

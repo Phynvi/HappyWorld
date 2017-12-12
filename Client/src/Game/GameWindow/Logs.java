@@ -7,6 +7,8 @@ import java.awt.*;
 
 public class Logs extends JPanel {
 
+    private JCheckBox devMode = new JCheckBox();
+
     private JTextArea logs = new JTextArea();;
     private JTextArea inbound = new JTextArea();;
     private JTextArea outbound = new JTextArea();;
@@ -14,7 +16,7 @@ public class Logs extends JPanel {
     public Logs(MessageHandler mh)
     {
         setLayout(new GridLayout(3,1));
-        add(setupDefaultPanel("Game Logs", logs));
+        add(setupDefaultPanel("Game Logs", logs, "Developer mode?", devMode));
         add(setupDefaultPanel("Inbound Messages", inbound));
         add(setupDefaultPanel("Outbound Messages", outbound));
 
@@ -47,7 +49,7 @@ public class Logs extends JPanel {
 
             dfault.add(moreFeatures, BorderLayout.PAGE_START);
         }
-        dfault.add(box);
+        dfault.add(new JScrollPane(box));
 
         box.setBorder(BorderFactory.createEtchedBorder(Color.BLUE, Color.BLACK));
 

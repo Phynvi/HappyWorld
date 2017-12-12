@@ -38,6 +38,7 @@ public class GameWindow extends JFrame {
         setTitle("HappyWorld");
         setSize(new Dimension(800, 600));
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        requestFocus();
 
         setLayout(new BorderLayout());
         add(options(), BorderLayout.PAGE_START);
