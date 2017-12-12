@@ -29,7 +29,7 @@ public class GameWindow extends JFrame {
 
         panelCont.add(new Board(mh), "Game");
         panelCont.add(new Highscores(), "Highscores");
-        panelCont.add(logsPanel, "Logs");
+        panelCont.add(new Logs(mh), "Logs");
 
         show("Game");
 
@@ -67,25 +67,36 @@ public class GameWindow extends JFrame {
         highscoresButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if (currentPanel.equals("Game"))
+                if (leaveGame())
                 {
-                    int dialogResult = JOptionPane.showConfirmDialog (null, "Are you sure you want to leave the game?", "Leave Game?", JOptionPane.YES_NO_OPTION);
-                    if (dialogResult != JOptionPane.YES_OPTION)
-                    {
-                        return;
-                    }
+                    show("Highscores");
                 }
-                show("Highscores");
             }
         });
         logsButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                show("Logs");
+                if (leaveGame())
+                {
+                    show("Logs");
+                }
             }
         });
 
 
         return options;
+    }
+
+    private boolean leaveGame()
+    {
+        if (currentPanel.equals("Game"))
+        {
+            int dialogResult = JOptionPane.showConfirmDialog (null, "Are you sure you want to leave the game?", "Leave Game?", JOptionPane.YES_NO_OPTION);
+            if (dialogResult != JOptionPane.YES_OPTION)
+            {
+                return false;
+            }
+        }
+        return true;
     }
 }
