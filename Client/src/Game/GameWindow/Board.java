@@ -1,4 +1,4 @@
-package Game.PlayField;
+package Game.GameWindow;
 
 import Game.GameConstants;
 import Game.Messages.MessageHandler;

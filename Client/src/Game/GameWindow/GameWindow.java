@@ -1,4 +1,4 @@
-package Game.PlayField;
+package Game.GameWindow;
 
 import Game.Messages.MessageHandler;
 
@@ -12,24 +12,24 @@ public class GameWindow extends JFrame {
     private CardLayout layout = new CardLayout();
 
     private JPanel panelCont = new JPanel();
-    private JPanel loginScreen = new JPanel();
-    private JPanel world2 = new JPanel();
-    private JButton login = new JButton("Login Screen");
-    private JButton world1b = new JButton("World 1");
-    private JButton world2b = new JButton("World 2");
+    private JPanel highscoresPanel = new JPanel();
+    private JPanel logsPanel = new JPanel();
+    private JButton game = new JButton("Game");
+    private JButton highscoresButton = new JButton("Highscores");
+    private JButton logsButton = new JButton("Logs");
 
     public GameWindow(MessageHandler mh)
     {
         panelCont.setLayout(layout);
 
-        loginScreen.add(new JLabel("LoginScreen"));
-        world2.add(new JLabel("W2"));
+        highscoresPanel.add(new JLabel("Highscores"));
+        logsPanel.add(new JLabel("Logs"));
 
-        panelCont.add(loginScreen, "Login Screen");
-        panelCont.add(new Board(mh), "World 1");
-        panelCont.add(world2, "World 2");
+        panelCont.add(new Board(mh), "Game");
+        panelCont.add(highscoresPanel, "Highscores");
+        panelCont.add(logsPanel, "Logs");
 
-        layout.show(panelCont, "World 1");
+        layout.show(panelCont, "Game");
 
         add(panelCont);
 
@@ -47,26 +47,26 @@ public class GameWindow extends JFrame {
         JMenuBar options = new JMenuBar();
         options.setLayout(new GridLayout(1,5));
 
-        options.add(login);
-        options.add(world1b);
-        options.add(world2b);
+        options.add(game);
+        options.add(highscoresButton);
+        options.add(logsButton);
 
-        login.addActionListener(new ActionListener() {
+        game.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                layout.show(panelCont, "Login Screen");
+                layout.show(panelCont, "Game");
             }
         });
-        world1b.addActionListener(new ActionListener() {
+        highscoresButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                layout.show(panelCont, "World 1");
+                layout.show(panelCont, "Highscores");
             }
         });
-        world2b.addActionListener(new ActionListener() {
+        logsButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                layout.show(panelCont, "World 2");
+                layout.show(panelCont, "Logs");
             }
         });
 

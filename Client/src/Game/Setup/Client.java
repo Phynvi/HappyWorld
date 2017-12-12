@@ -1,10 +1,9 @@
 package Game.Setup;
 
-import Game.PlayField.Board;
 import Game.GameConstants;
 import Game.Messages.MessageHandler;
 import Game.Messages.ReceiveMessages;
-import Game.PlayField.GameWindow;
+import Game.GameWindow.GameWindow;
 
 import javax.swing.*;
 import java.awt.*;
