@@ -1,11 +1,12 @@
 package Game;
 
+import Game.Messages.ReceiveMessages;
+
 import java.io.DataInputStream;
 import java.io.IOException;
 import java.net.Socket;
 
 import static Game.clientUtils.sleep;
-import static Game.clientUtils.tick;
 
 public class Client {
 

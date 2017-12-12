@@ -1,4 +1,4 @@
-package Game;
+package Game.Messages;
 
 import java.io.DataInputStream;
 import java.io.IOException;

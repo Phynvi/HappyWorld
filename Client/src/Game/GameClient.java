@@ -1,6 +1,9 @@
 package Game;
 
-import sun.plugin2.message.Message;
+import Game.Messages.MessageHandler;
+import Game.Messages.ReceiveMessages;
+
+import javax.swing.*;
 
 import static Game.clientUtils.tick;
 
