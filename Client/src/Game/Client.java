@@ -22,6 +22,7 @@ public class Client {
         gameSync.start();
 
         GameClient game = new GameClient(gameSync);
+        game.start();
     }
 
     private static boolean connectToServer() {

@@ -1,5 +1,7 @@
 package Game;
 
+import sun.plugin2.message.Message;
+
 import static Game.clientUtils.tick;
 
 public class GameClient {
@@ -13,26 +15,17 @@ public class GameClient {
 
     public void start()
     {
-        int ticksSinceLast = 0;
-        while (true)
+        MessageHandler mh = new MessageHandler();
+        while (mh.running)
         {
             String message = gameSync.getMessage();
-
             if (message == null)
             {
                 tick();
-                ticksSinceLast++;
                 continue;
             }
 
-            System.out.println("Client received: \"" + message + "\" (" + ticksSinceLast + " ticks since last message)");
-            ticksSinceLast = 0;
-            if (message.equals("End"))
-            {
-                System.out.println("End message detected. Terminating client.");
-                return;
-            }
+            mh.handle(message);
         }
-
     }
 }
