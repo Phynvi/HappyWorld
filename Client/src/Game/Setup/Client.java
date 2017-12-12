@@ -18,25 +18,21 @@ public class Client extends JFrame {
     private static Socket socket;
     private static DataInputStream in;
     private static MessageHandler mh;
-//    private static GameWindow gw;
-
-    public Client()
-    {
-        initUI();
-    }
+    private static LoadScreen load;
 
     public static void main (String args[]) {
-        if (!connectToServer())
-        {
-            return;
-        }
+        mh = new MessageHandler();
+        load = new LoadScreen();
+
+        connectToServer();
 
         ReceiveMessages gameSync = new ReceiveMessages(in);
         gameSync.start();
 
-        mh = new MessageHandler();
         Syncer game = new Syncer(gameSync, mh);
         game.start();
+
+        load.dispose();
 
         EventQueue.invokeLater(() -> {
             GameWindow gw = new GameWindow(mh);
@@ -44,25 +40,27 @@ public class Client extends JFrame {
         });
     }
 
-    private void initUI() {
-  //      gw = new GameWindow(mh);
+    private static void qlog(String log)
+    {
+        mh.log(log);
+        load.setDisplay(log);
     }
 
     private static boolean connectToServer() {
-        System.out.println("Connecting...");
+        qlog("Connecting...");
         try {
             socket = new Socket("localhost", GameConstants.PORT);
         } catch (IOException e) {
-            System.out.println("Server not on.. Reconnecting in 5 seconds.");
+            qlog("Server not on.. Reconnecting in 5 seconds.");
             sleep(5);
             return connectToServer();
         }
-        System.out.println("Connection successful.");
+        qlog("Connection successful.");
 
         try {
             in = new DataInputStream(socket.getInputStream());
         } catch (IOException e) {
-            System.out.println("Could not get input stream. Error: " + e.getMessage());
+            qlog("Could not get input stream. Error: " + e.getMessage());
             return false;
         }
 

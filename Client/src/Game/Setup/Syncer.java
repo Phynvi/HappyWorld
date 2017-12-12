@@ -26,7 +26,6 @@ public class Syncer extends Thread {
                 tick();
                 continue;
             }
-
             mh.handle(message);
         }
     }
