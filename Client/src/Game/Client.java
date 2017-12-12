@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.net.Socket;
 
 import static Game.clientUtils.sleep;
+import static Game.clientUtils.tick;
 
 public class Client {
 
@@ -20,30 +21,7 @@ public class Client {
         ReceiveMessages gameSync = new ReceiveMessages(in);
         gameSync.start();
 
-        int ticksSinceLast = 0;
-        while (true)
-        {
-            String message = gameSync.getMessage();
-
-            if (message == null)
-            {
-                tick();
-                ticksSinceLast++;
-                continue;
-            }
-
-            System.out.println("Client received: \"" + message + "\" (" + ticksSinceLast + " ticks since last message)");
-            ticksSinceLast = 0;
-            if (message.equals("End"))
-            {
-                System.out.println("End message detected. Terminating client.");
-                return;
-            }
-        }
-    }
-
-    private static void tick() {
-        sleep(GameConstants.TICK_TIME);
+        GameClient game = new GameClient(gameSync);
     }
 
     private static boolean connectToServer() {

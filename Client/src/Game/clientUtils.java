@@ -10,4 +10,9 @@ public class clientUtils {
             e.printStackTrace();
         }
     }
+
+    public static void tick() {
+        sleep(GameConstants.TICK_TIME);
+    }
+
 }
