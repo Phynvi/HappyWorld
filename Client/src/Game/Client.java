@@ -11,8 +11,6 @@ public class Client {
     static Socket socket;
     static DataInputStream in;
 
-    public static final int PORT = 5565;
-
     public static void main (String args[]) {
         if (!connectToServer())
         {
@@ -51,7 +49,7 @@ public class Client {
     private static boolean connectToServer() {
         System.out.println("Connecting...");
         try {
-            socket = new Socket("localhost", PORT);
+            socket = new Socket("localhost", GameConstants.PORT);
         } catch (IOException e) {
             System.out.println("Server not on.. Reconnecting in 5 seconds.");
             sleep(5);
