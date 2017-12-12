@@ -45,7 +45,7 @@ public class Client {
     }
 
     private static void tick() {
-        sleep(0.6);
+        sleep(GameConstants.TICK_TIME);
     }
 
     private static boolean connectToServer() {
