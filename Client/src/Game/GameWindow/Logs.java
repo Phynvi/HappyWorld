@@ -63,10 +63,12 @@ public class Logs extends JPanel {
 
             dfault.add(moreFeatures, BorderLayout.PAGE_START);
         }
-        dfault.add(new JScrollPane(box));
+        JScrollPane scroll = new JScrollPane(box);
+        dfault.add(scroll);
 
         box.setBorder(BorderFactory.createEtchedBorder(Color.BLUE, Color.BLACK));
 
+        revalidate();
         return dfault;
     }
 
