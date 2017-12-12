@@ -4,6 +4,7 @@ import Game.PlayField.Board;
 import Game.GameConstants;
 import Game.Messages.MessageHandler;
 import Game.Messages.ReceiveMessages;
+import Game.PlayField.GameWindow;
 
 import javax.swing.*;
 import java.awt.*;
@@ -34,7 +35,7 @@ public class Client extends JFrame {
         gameSync.start();
 
         mh = new MessageHandler();
-        GameClient game = new GameClient(gameSync, mh);
+        Syncer game = new Syncer(gameSync, mh);
         game.start();
 
         EventQueue.invokeLater(() -> {
@@ -44,12 +45,7 @@ public class Client extends JFrame {
     }
 
     private void initUI() {
-        add(new Board(mh));
-
-        setSize(800, 600);
-
-        setTitle("HappyWorld");
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        add(new GameWindow(mh));
     }
 
     private static boolean connectToServer() {
