@@ -27,7 +27,13 @@ public class Server {
         sleep(15);
         writeUTF(out, "This is a final test of Java sockets");
 
-        System.out.println("All the data has been sent.");
+        while (true)
+        {
+            writeUTF(out, "sending bullshit");
+        }
+
+//        System.out.println("All the data has been sent.");
+        //It tells the Client it disconnected when it's freed here
     }
 
     private static boolean writeUTF(DataOutputStream out, String msg)
