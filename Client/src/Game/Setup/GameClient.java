@@ -1,4 +1,4 @@
-package Game;
+package Game.Setup;
 
 import Game.Messages.MessageHandler;
 import Game.Messages.ReceiveMessages;

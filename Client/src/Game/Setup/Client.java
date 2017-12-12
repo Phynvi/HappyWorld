@@ -1,5 +1,7 @@
-package Game;
+package Game.Setup;
 
+import Game.PlayField.Board;
+import Game.GameConstants;
 import Game.Messages.MessageHandler;
 import Game.Messages.ReceiveMessages;
 

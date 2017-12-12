@@ -4,14 +4,8 @@ import java.awt.event.KeyEvent;
 
 public class Controls {
 
-    private Player p;
     private int dx;
     private int dy;
-
-    public Controls(Player p)
-    {
-        this.p = p;
-    }
 
     public void keyPressed(KeyEvent e) {
         int key = e.getKeyCode();
@@ -33,9 +27,11 @@ public class Controls {
         }
     }
 
-    public void move()
-    {
-        p.setX(p.getX() + dx);
-        p.setY(p.getY() + dy);
+    public int getDx() {
+        return dx;
+    }
+
+    public int getDy() {
+        return dy;
     }
 }
