@@ -27,12 +27,13 @@ public class Server {
         sleep(15);
         writeUTF(out, "This is a final test of Java sockets");
 
-        while (true)
+        for (int i = 0; i < 100; i++)
         {
-            writeUTF(out, "sending bullshit");
+            writeUTF(out, "sending bullshit... " + (100-i) + " left.");
+            sleep(10);
         }
 
-//        System.out.println("All the data has been sent.");
+        System.out.println("All the data has been sent.");
         //It tells the Client it disconnected when it's freed here
     }
 
