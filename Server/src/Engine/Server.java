@@ -1,3 +1,5 @@
+package Engine;
+
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.ServerSocket;
@@ -18,17 +20,24 @@ public class Server {
 
         socket = serverSocket.accept();
         System.out.println("Connection from: " + socket.getInetAddress());
-
-        System.out.println("Sending outputStream in 15 seconds...");
-        sleep(15);
         out = new DataOutputStream(socket.getOutputStream());
 
-        out.writeUTF("This is a test of Java sockets");
-        out.writeUTF("This is a second test of Java sockets.. next one comes in 15 seconds.");
+        writeUTF(out, "This is a test of Java sockets");
+        writeUTF(out, "This is a second test of Java sockets.. next one comes in 15 seconds.");
         sleep(15);
-        out.writeUTF("This is a final test of Java sockets");
+        writeUTF(out, "This is a final test of Java sockets");
 
         System.out.println("All the data has been sent.");
+    }
+
+    private static boolean writeUTF(DataOutputStream out, String msg)
+    {
+        try {
+            out.writeUTF(msg);
+        } catch (IOException e) {
+            return false;
+        }
+        return true;
     }
 
     private static void sleep(int secs)

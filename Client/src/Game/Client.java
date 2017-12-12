@@ -4,6 +4,8 @@ import java.io.DataInputStream;
 import java.io.IOException;
 import java.net.Socket;
 
+import static Game.clientUtils.sleep;
+
 public class Client {
 
     static Socket socket;
@@ -12,7 +14,7 @@ public class Client {
     public static final int PORT = 5565;
 
     public static void main (String args[]) {
-        if (!conectToServer())
+        if (!connectToServer())
         {
             return;
         }
@@ -20,14 +22,20 @@ public class Client {
         Sync gameSync = new Sync(in);
         gameSync.start();
 
+        int ticksSinceLast = 0;
         while (true)
         {
-            String message = null;
-            if (gameSync.messagePending())
+            String message = gameSync.getMessage();
+
+            if (message == null)
             {
-                message = gameSync.getMessage();
-                System.out.println("We got a message!! : " + message);
+                tick();
+                ticksSinceLast++;
+                continue;
             }
+
+            System.out.println("Client received: \"" + message + "\" (" + ticksSinceLast + " ticks since last message)");
+            ticksSinceLast = 0;
             if (message.equals("End"))
             {
                 System.out.println("End message detected. Terminating client.");
@@ -36,14 +44,18 @@ public class Client {
         }
     }
 
-    private static boolean conectToServer() {
+    private static void tick() {
+        sleep(0.6);
+    }
+
+    private static boolean connectToServer() {
         System.out.println("Connecting...");
         try {
             socket = new Socket("localhost", PORT);
         } catch (IOException e) {
             System.out.println("Server not on.. Reconnecting in 5 seconds.");
-            clientUtils.sleep(5);
-            return false;
+            sleep(5);
+            return connectToServer();
         }
         System.out.println("Connection successful.");
 
