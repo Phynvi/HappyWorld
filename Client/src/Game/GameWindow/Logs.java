@@ -4,6 +4,8 @@ import Game.Messages.MessageHandler;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public class Logs extends JPanel {
 
@@ -19,6 +21,17 @@ public class Logs extends JPanel {
         add(setupDefaultPanel("Game Logs", logs, " Developer mode?", devMode));
         add(setupDefaultPanel("Inbound Messages", inbound));
         add(setupDefaultPanel("Outbound Messages", outbound));
+
+        devMode.addActionListener(e -> {
+           if (devMode.isSelected())
+           {
+               mh.setDevMode(true);
+           }
+           else
+           {
+               mh.setDevMode(false);
+           }
+        });
 
         mh.giveBoxs(inbound, outbound, logs);
     }

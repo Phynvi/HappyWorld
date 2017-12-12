@@ -6,6 +6,8 @@ import java.util.ArrayList;
 public class MessageHandler {
 
     private boolean running;
+    private boolean devMode = false;
+
     private JTextArea input = null;
     private JTextArea logBox = null;
     private JTextArea output = null;
@@ -74,4 +76,8 @@ public class MessageHandler {
         return running;
     }
 
+    public void setDevMode(boolean devMode) {
+        this.devMode = devMode;
+        log("Dev mode set to " + devMode);
+    }
 }
