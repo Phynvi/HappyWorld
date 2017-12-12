@@ -22,6 +22,7 @@ public class Client {
         ReceiveMessages gameSync = new ReceiveMessages(in);
         gameSync.start();
 
+
         GameClient game = new GameClient(gameSync);
         game.start();
     }

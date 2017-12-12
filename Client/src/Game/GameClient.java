@@ -7,7 +7,7 @@ import javax.swing.*;
 
 import static Game.clientUtils.tick;
 
-public class GameClient {
+public class GameClient extends Thread {
 
     private ReceiveMessages gameSync;
 
@@ -16,7 +16,7 @@ public class GameClient {
         this.gameSync = sync;
     }
 
-    public void start()
+    public void run()
     {
         MessageHandler mh = new MessageHandler();
         while (mh.running)
