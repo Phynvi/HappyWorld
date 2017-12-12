@@ -26,6 +26,7 @@ public class Board extends JPanel {
         player = new Player();
 
         addKeyListener(new TAdapter());
+
         setFocusable(true);
         setBackground(Color.BLACK);
 
@@ -50,6 +51,7 @@ public class Board extends JPanel {
         @Override
         public void run()
         {
+            requestFocus();
             player.move();
             //Paint all the objects
             repaint();

@@ -19,6 +19,7 @@ public class Client extends JFrame {
     private static Socket socket;
     private static DataInputStream in;
     private static MessageHandler mh;
+//    private static GameWindow gw;
 
     public Client()
     {
@@ -39,13 +40,13 @@ public class Client extends JFrame {
         game.start();
 
         EventQueue.invokeLater(() -> {
-            Client GameWindow = new Client();
-            GameWindow.setVisible(true);
+            GameWindow gw = new GameWindow(mh);
+            gw.setVisible(true);
         });
     }
 
     private void initUI() {
-        add(new GameWindow(mh));
+  //      gw = new GameWindow(mh);
     }
 
     private static boolean connectToServer() {
