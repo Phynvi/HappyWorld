@@ -11,13 +11,11 @@ public class Server {
     static Socket socket;
     static DataOutputStream out;
 
-    public static final int PORT = 5565;
-
     public static void main (String args[]) throws IOException {
         System.out.println("Starting server..");
-        serverSocket = new ServerSocket(PORT);
+        serverSocket = new ServerSocket(ServerConstants.PORT);
         System.out.println("Server started...");
-
+        
         socket = serverSocket.accept();
         System.out.println("Connection from: " + socket.getInetAddress());
         out = new DataOutputStream(socket.getOutputStream());
