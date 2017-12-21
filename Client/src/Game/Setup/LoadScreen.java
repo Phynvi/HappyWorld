@@ -23,6 +23,7 @@ public class LoadScreen extends JFrame {
         display.setBorder(BorderFactory.createLineBorder(Color.BLACK));
         add(display);
         setLocationRelativeTo(null);
+        display.setFocusPainted(false);
 
         display.addActionListener(new ActionListener() {
             @Override

@@ -1,36 +1,46 @@
 package Game.Messages;
 
-import java.io.DataInputStream;
-import java.io.IOException;
+import java.net.*;
 import java.util.ArrayList;
 
 public class ReceiveMessages extends Thread {
 
-    private static DataInputStream in;
     private static ArrayList<String> serverMessageQueue;
+    private DatagramSocket clientSocket;
+    byte[] receiveData;
+    DatagramPacket receivePacket;
 
-    public ReceiveMessages(DataInputStream in) {
+
+    public ReceiveMessages(DatagramSocket clientSocket) {
         serverMessageQueue = new ArrayList<>();
-        this.in = in;
+        receiveData = new byte[1024];
+        receivePacket = new DatagramPacket(receiveData, receiveData.length);
+        this.clientSocket = clientSocket;
     }
 
     public void run()
     {
-        getInfo();
+        while (true)
+        {
+            getInfo();
+        }
     }
 
     private void getInfo() {
         String servMessage = null;
         try {
-            servMessage = in.readUTF();
-        } catch (IOException e) {
-            //Tell the client to shut off
+            clientSocket.receive(receivePacket);
+            String modifiedSentence = new String(receivePacket.getData());
+            System.out.println("FROM SERVER:" + modifiedSentence);
+
+            servMessage = new String(receivePacket.getData());
+        } catch (Exception e) {
+            System.out.println("\n\nException occured!\n\n");
+            e.printStackTrace();
             serverMessageQueue.add("End");
-            return;
         }
 
         serverMessageQueue.add(servMessage);
-        getInfo();
     }
 
     /**

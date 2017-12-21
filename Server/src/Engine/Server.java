@@ -2,56 +2,35 @@ package Engine;
 
 import java.io.DataOutputStream;
 import java.io.IOException;
-import java.net.ServerSocket;
-import java.net.Socket;
+import java.net.*;
 
 public class Server {
 
-    static ServerSocket serverSocket;
-    static Socket socket;
-    static DataOutputStream out;
-
     public static void main (String args[]) throws IOException {
-        System.out.println("Starting server..");
-        serverSocket = new ServerSocket(ServerConstants.PORT);
-        System.out.println("Server started...");
-        
-        socket = serverSocket.accept();
-        System.out.println("Connection from: " + socket.getInetAddress());
-        out = new DataOutputStream(socket.getOutputStream());
-
-        writeUTF(out, "This is a test of Java sockets");
-        writeUTF(out, "This is a second test of Java sockets.. next one comes in 15 seconds.");
-        sleep(15);
-        writeUTF(out, "This is a final test of Java sockets");
-
-        for (int i = 0; i < 100; i++)
+        DatagramSocket serverSocket = new DatagramSocket(5565);
+        byte[] receiveData = new byte[1024];
+        byte[] sendData = new byte[1024];
+        while(true)
         {
-            writeUTF(out, "sending bullshit... " + (100-i) + " left.");
-            sleep(10);
-        }
+            System.out.println("Loop");
 
-        System.out.println("All the data has been sent.");
-        //It tells the Client it disconnected when it's freed here
-    }
+            DatagramPacket receivePacket = new DatagramPacket(receiveData, receiveData.length);
+            serverSocket.receive(receivePacket);
+            System.out.println("Received");
 
-    private static boolean writeUTF(DataOutputStream out, String msg)
-    {
-        try {
-            out.writeUTF(msg);
-        } catch (IOException e) {
-            return false;
-        }
-        return true;
-    }
+            String sentence = new String( receivePacket.getData());
+            System.out.println("RECEIVED: " + sentence);
 
-    private static void sleep(int secs)
-    {
-        try {
-            Thread.sleep(secs * 1000);
-        } catch (InterruptedException e) {
-            System.out.println("Fuck");
-            e.printStackTrace();
+            InetAddress IPAddress = receivePacket.getAddress();
+            int port = receivePacket.getPort();
+            String capitalizedSentence = sentence.toUpperCase();
+
+            System.out.println("Sending data");
+            sendData = capitalizedSentence.getBytes();
+            DatagramPacket sendPacket =
+                    new DatagramPacket(sendData, sendData.length, IPAddress, port);
+            serverSocket.send(sendPacket);
+            System.out.println("Sent");
         }
     }
 }
