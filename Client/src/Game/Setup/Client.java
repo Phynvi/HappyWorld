@@ -38,12 +38,12 @@ public class Client extends JFrame {
 //        gameSync.start();
 
 
-//        load.dispose();
+        load.dispose();
 
-  /*      EventQueue.invokeLater(() -> {
+        EventQueue.invokeLater(() -> {
             GameWindow gw = new GameWindow(mh);
             gw.setVisible(true);
-        });*/
+        });
     }
 
     private static void qlog(String log)

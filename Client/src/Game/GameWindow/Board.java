@@ -14,12 +14,10 @@ import java.awt.*;
 public class Board extends JPanel {
 
     private Timer timer;
-    private ConnectionHandler mh;
     private Player player;
 
-    public Board(ConnectionHandler mh) {
+    public Board() {
         initBoard();
-        this.mh = mh;
     }
 
     private void initBoard() {
@@ -51,7 +49,7 @@ public class Board extends JPanel {
         @Override
         public void run()
         {
-            requestFocus();
+//            requestFocus();
             player.move();
             //Paint all the objects
             repaint();

@@ -58,7 +58,7 @@ public class ConnectionHandler {
         }
         else
         {
-            System.out.println("Garbage: " + received);
+            updateReceiveBox("Garbage:" + received);
         }
     }
 

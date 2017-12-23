@@ -24,10 +24,13 @@ public class GameWindow extends JFrame {
     {
         panelCont.setLayout(layout);
 
+        setTitle("HappyWorld");
+        setSize(new Dimension(800, 600));
+
         highscoresPanel.add(new JLabel("Highscores"));
         logsPanel.add(new JLabel("Logs"));
 
-        panelCont.add(new Board(mh), "Game");
+        panelCont.add(new Board(), "Game");
         panelCont.add(new Highscores(), "Highscores");
         panelCont.add(new Logs(mh), "Logs");
 
@@ -35,8 +38,6 @@ public class GameWindow extends JFrame {
 
         add(panelCont);
 
-        setTitle("HappyWorld");
-        setSize(new Dimension(800, 600));
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         requestFocus();
 
