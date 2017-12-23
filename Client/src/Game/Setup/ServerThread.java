@@ -5,12 +5,12 @@ import Game.Messages.ReceiveMessages;
 
 import static Game.clientUtils.tick;
 
-public class Syncer extends Thread {
+public class ServerThread extends Thread {
 
     private ReceiveMessages gameSync;
     MessageHandler mh;
 
-    public Syncer(ReceiveMessages sync, MessageHandler mh)
+    public ServerThread(ReceiveMessages sync, MessageHandler mh)
     {
         this.gameSync = sync;
         this.mh = mh;
@@ -20,13 +20,12 @@ public class Syncer extends Thread {
     {
         while (mh.isRunning())
         {
-            String message = gameSync.getMessage();
-            if (message == null)
+            while (gameSync.messagePending())
             {
-                tick();
-                continue;
+                String message = gameSync.getMessage();
+                mh.handle(message);
             }
-            mh.handle(message);
+            tick();
         }
     }
 }

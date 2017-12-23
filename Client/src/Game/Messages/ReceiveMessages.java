@@ -16,6 +16,12 @@ public class ReceiveMessages extends Thread {
         receiveData = new byte[1024];
         receivePacket = new DatagramPacket(receiveData, receiveData.length);
         this.clientSocket = clientSocket;
+        try {
+            clientSocket.setSoTimeout(0);
+        } catch (SocketException e) {
+            System.out.println("Could not set timeout!");
+            e.printStackTrace();
+        }
     }
 
     public void run()
@@ -31,11 +37,9 @@ public class ReceiveMessages extends Thread {
         try {
             clientSocket.receive(receivePacket);
             String modifiedSentence = new String(receivePacket.getData());
-            System.out.println("FROM SERVER:" + modifiedSentence);
 
             servMessage = new String(receivePacket.getData());
         } catch (Exception e) {
-            System.out.println("\n\nException occured!\n\n");
             e.printStackTrace();
             serverMessageQueue.add("End");
         }

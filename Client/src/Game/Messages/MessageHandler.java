@@ -28,6 +28,7 @@ public class MessageHandler {
         if (message.equals("End"))
         {
             this.running = false;
+            log("Server closed.");
         }
     }
 
