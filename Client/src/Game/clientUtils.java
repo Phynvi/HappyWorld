@@ -1,6 +1,6 @@
 package Game;
 
-import Game.Messages.MessageHandler;
+import Game.Messages.ConnectionHandler;
 
 import java.io.*;
 import java.util.zip.ZipEntry;
@@ -21,7 +21,7 @@ public class clientUtils {
         sleep(GameConstants.TICK_TIME);
     }
 
-    public static void unzip(File tounzip, String destination, MessageHandler mh) throws IOException {
+    public static void unzip(File tounzip, String destination, ConnectionHandler mh) throws IOException {
         byte[] buffer = new byte[1024];
 
         //create output directory is not exists

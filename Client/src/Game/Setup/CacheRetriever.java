@@ -1,7 +1,7 @@
 package Game.Setup;
 
 import Game.GameConstants;
-import Game.Messages.MessageHandler;
+import Game.Messages.ConnectionHandler;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -20,7 +20,7 @@ import static Game.clientUtils.unzip;
  * Mirror: http://archive.is/ua04S
  */
 public class CacheRetriever {
-    public static boolean downloadCache(LoadScreen load, MessageHandler mh)
+    public static boolean downloadCache(LoadScreen load, ConnectionHandler mh)
     {
         setupCacheDir();
 
@@ -44,7 +44,7 @@ public class CacheRetriever {
         return true;
     }
 
-    private static void download(LoadScreen load, MessageHandler mh) throws IOException {
+    private static void download(LoadScreen load, ConnectionHandler mh) throws IOException {
         URL url = new URL(CACHE_LOC);
         HttpURLConnection httpConn = (HttpURLConnection) url.openConnection();
         httpConn.addRequestProperty("User-Agent", "Mozilla/4.76");

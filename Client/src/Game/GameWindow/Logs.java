@@ -1,11 +1,9 @@
 package Game.GameWindow;
 
-import Game.Messages.MessageHandler;
+import Game.Messages.ConnectionHandler;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 public class Logs extends JPanel {
 
@@ -15,7 +13,7 @@ public class Logs extends JPanel {
     private JTextArea inbound = new JTextArea();;
     private JTextArea outbound = new JTextArea();;
 
-    public Logs(MessageHandler mh)
+    public Logs(ConnectionHandler mh)
     {
         setLayout(new GridLayout(3,1));
         add(setupDefaultPanel("Game Logs", logs, " Developer mode?", devMode));

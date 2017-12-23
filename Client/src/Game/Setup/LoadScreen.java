@@ -1,7 +1,5 @@
 package Game.Setup;
 
-import Game.Messages.MessageHandler;
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;

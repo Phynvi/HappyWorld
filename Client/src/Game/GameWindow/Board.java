@@ -1,7 +1,7 @@
 package Game.GameWindow;
 
 import Game.GameConstants;
-import Game.Messages.MessageHandler;
+import Game.Messages.ConnectionHandler;
 import Game.Player.Player;
 
 import java.awt.event.KeyAdapter;
@@ -14,10 +14,10 @@ import java.awt.*;
 public class Board extends JPanel {
 
     private Timer timer;
-    private MessageHandler mh;
+    private ConnectionHandler mh;
     private Player player;
 
-    public Board(MessageHandler mh) {
+    public Board(ConnectionHandler mh) {
         initBoard();
         this.mh = mh;
     }

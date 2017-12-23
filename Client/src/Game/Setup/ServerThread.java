@@ -1,18 +1,20 @@
 package Game.Setup;
 
-import Game.Messages.MessageHandler;
-import Game.Messages.ReceiveMessages;
+import Game.Messages.ConnectionHandler;
 
 import static Game.clientUtils.tick;
 
+
+/**
+ * This is the class that's responsible for making the MessageHandler handle its messages
+ * It maintains a thread of the MessageHandler and makes it check for messages every tick
+ */
 public class ServerThread extends Thread {
 
-    private ReceiveMessages gameSync;
-    MessageHandler mh;
+    ConnectionHandler mh;
 
-    public ServerThread(ReceiveMessages sync, MessageHandler mh)
+    public ServerThread(ConnectionHandler mh)
     {
-        this.gameSync = sync;
         this.mh = mh;
     }
 
@@ -20,9 +22,9 @@ public class ServerThread extends Thread {
     {
         while (mh.isRunning())
         {
-            while (gameSync.messagePending())
+            while (mh.messagePending())
             {
-                String message = gameSync.getMessage();
+                String message = mh.getMessage();
                 mh.handle(message);
             }
             tick();

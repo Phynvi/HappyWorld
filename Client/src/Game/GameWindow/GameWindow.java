@@ -1,6 +1,6 @@
 package Game.GameWindow;
 
-import Game.Messages.MessageHandler;
+import Game.Messages.ConnectionHandler;
 
 import javax.swing.*;
 import java.awt.*;
@@ -20,7 +20,7 @@ public class GameWindow extends JFrame {
 
     private String currentPanel;
 
-    public GameWindow(MessageHandler mh)
+    public GameWindow(ConnectionHandler mh)
     {
         panelCont.setLayout(layout);
 
