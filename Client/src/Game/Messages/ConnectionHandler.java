@@ -1,5 +1,6 @@
 package Game.Messages;
 
+import Game.GameConstants;
 import Game.Messages.Connections.ClientThreadReceiving;
 import Game.Messages.Connections.ClientThreadSending;
 import Game.Messages.Connections.ServerStats;
@@ -8,7 +9,6 @@ import javax.swing.*;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.function.Consumer;
-import java.util.function.Function;
 
 public class ConnectionHandler {
 
@@ -35,7 +35,7 @@ public class ConnectionHandler {
             updateReceiveBox(x);
         };
         Consumer<String> logToSendBox = (String x) -> {
-            updateReceiveBox(x);
+            updateSendBox(x);
         };
 
         clientReceive = new ClientThreadReceiving(logToReceiveBox, receiveQueue);
@@ -49,11 +49,16 @@ public class ConnectionHandler {
         clientSend.start();
     }
 
+    public void send (String toSend)
+    {
+        clientSend.send(toSend);
+    }
+
     public void handle(String received)
     {
         if (received.equals("Connection established" + ServerStats.ClientID))
         {
-            ServerStats.isConnected = true;
+            ServerStats.connectionStatus = GameConstants.connectionStatusEnum.CONNECTED;
             updateReceiveBox("Connection established!");
         }
         else
@@ -62,9 +67,9 @@ public class ConnectionHandler {
         }
     }
 
-    public boolean isConnected()
+    public GameConstants.connectionStatusEnum getConnectionStatus()
     {
-        return ServerStats.isConnected;
+        return ServerStats.connectionStatus;
     }
 
     public boolean messagePending() {
@@ -86,11 +91,11 @@ public class ConnectionHandler {
 
     private void updateReceiveBox(String message)
     {
-        addToBox(message, output, messagesBeforeOutput);
+        addToBox(message, input, messagesBeforeInput);
     }
 
     private void updateSendBox(String message) {
-        addToBox(message, input, messagesBeforeInput);
+        addToBox(message, output, messagesBeforeOutput);
     }
 
     private void addToBox(String message, JTextArea boxToAdd, ArrayList<String> q)

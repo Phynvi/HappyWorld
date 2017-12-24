@@ -1,5 +1,7 @@
 package Engine;
 
+import com.sun.security.ntlm.Server;
+
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
@@ -68,7 +70,7 @@ public class ServerThreadSending extends Thread {
         // send it
         InetAddress group = InetAddress.getByName("230.0.0.1");
         DatagramPacket packet = new DatagramPacket(buf, buf.length,
-                group, 4445);
+                group, ServerConstants.PORT);
         socket.send(packet);
     }
 

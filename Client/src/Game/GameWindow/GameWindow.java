@@ -1,5 +1,6 @@
 package Game.GameWindow;
 
+import Game.GameWindow.Game.Board;
 import Game.Messages.ConnectionHandler;
 
 import javax.swing.*;
@@ -30,7 +31,7 @@ public class GameWindow extends JFrame {
         highscoresPanel.add(new JLabel("Highscores"));
         logsPanel.add(new JLabel("Logs"));
 
-        panelCont.add(new Board(), "Game");
+        panelCont.add(new Board(mh), "Game");
         panelCont.add(new Highscores(), "Highscores");
         panelCont.add(new Logs(mh), "Logs");
 
@@ -39,11 +40,15 @@ public class GameWindow extends JFrame {
         add(panelCont);
 
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        requestFocus();
 
         setLayout(new BorderLayout());
         add(options(), BorderLayout.PAGE_START);
         add(panelCont);
+    }
+
+    public boolean gwHasFocus()
+    {
+        return this.hasFocus();
     }
 
     private void show(String pan) {

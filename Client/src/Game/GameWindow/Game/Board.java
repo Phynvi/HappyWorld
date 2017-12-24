@@ -1,7 +1,8 @@
-package Game.GameWindow;
+package Game.GameWindow.Game;
 
 import Game.GameConstants;
 import Game.Messages.ConnectionHandler;
+import Game.Messages.Connections.ServerStats;
 import Game.Player.Player;
 
 import java.awt.event.KeyAdapter;
@@ -10,13 +11,17 @@ import java.util.Timer;
 import java.util.TimerTask;
 import javax.swing.*;
 import java.awt.*;
+import java.util.function.BooleanSupplier;
 
 public class Board extends JPanel {
 
     private Timer timer;
     private Player player;
+    private ConnectionHandler mh;
 
-    public Board() {
+    public Board(ConnectionHandler mh)
+    {
+        this.mh = mh;
         initBoard();
     }
 
@@ -29,8 +34,12 @@ public class Board extends JPanel {
         setBackground(Color.BLACK);
 
         timer = new Timer();
-        timer.scheduleAtFixedRate(new ScheduleTask(),
-                0, GameConstants.MS_TICK_TIME);
+        timer.schedule(new ScheduleTask(), 0, GameConstants.MS_TICK_TIME);
+    }
+
+    public void tryToGetFocus()
+    {
+        this.requestFocusInWindow();
     }
 
     @Override
@@ -49,8 +58,9 @@ public class Board extends JPanel {
         @Override
         public void run()
         {
-//            requestFocus();
+            tryToGetFocus();
             player.move();
+            mh.send("PlayerCoords:" + player.getX() + "," + player.getY() + "*" + ServerStats.ClientID);
             //Paint all the objects
             repaint();
         }

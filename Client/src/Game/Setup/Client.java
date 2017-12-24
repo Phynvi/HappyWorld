@@ -1,11 +1,11 @@
 package Game.Setup;
 
+import Game.GameConstants;
 import Game.Messages.ConnectionHandler;
 import Game.GameWindow.GameWindow;
 
 import javax.swing.*;
 import java.awt.*;
-import java.io.IOException;
 import java.net.MulticastSocket;
 
 import static Game.Setup.CacheRetriever.downloadCache;
@@ -54,14 +54,15 @@ public class Client extends JFrame {
 
     private static boolean connectToServer() {
 
-        while (!mh.isConnected()) {
-            qlog("Attempting to establish connection...");
-            sleep(2);
-            if (!mh.isConnected())
-            {
-                qlog("Could not connect. Trying again in 5 seconds..");
-                sleep(5);
-            }
+        while (mh.getConnectionStatus() == GameConstants.connectionStatusEnum.NOTSTARTED)
+        {
+            qlog("Requesting connection from server..");
+            sleep(1);
+        }
+        while (mh.getConnectionStatus() == GameConstants.connectionStatusEnum.REQUESTED)
+        {
+            qlog("Waiting to hear from server..");
+            sleep(1);
         }
 
         qlog("Connection successful.");

@@ -8,7 +8,8 @@ public class MulticastServer {
 
     public static void main(String[] args) throws IOException {
         received = new ArrayList<>();
+        ServerVariables servVars = new ServerVariables();
         new ServerThreadSending(received).start();
-        new ServerThreadReceiving(received).start();
+        new ServerThreadReceiving(received, servVars).start();
     }
 }

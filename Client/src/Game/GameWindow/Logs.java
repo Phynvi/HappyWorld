@@ -3,6 +3,7 @@ package Game.GameWindow;
 import Game.Messages.ConnectionHandler;
 
 import javax.swing.*;
+import javax.swing.text.DefaultCaret;
 import java.awt.*;
 
 public class Logs extends JPanel {
@@ -38,8 +39,10 @@ public class Logs extends JPanel {
     {
         JPanel dfault = new JPanel();
 
+        DefaultCaret caret = (DefaultCaret)box.getCaret();
+        caret.setUpdatePolicy(DefaultCaret.ALWAYS_UPDATE);
+
         box.setEditable(false);
-        box.setAutoscrolls(true);
 
         dfault.setLayout(new BorderLayout());
         if (additionalOption == null)

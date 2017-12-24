@@ -9,4 +9,6 @@ public class GameConstants {
     public static final String CACHE_NAME = "Cache.zip";
     public static final String CACHE_DIRECTORY = "Cache/";
     public static final String PLAYER_PINK = CACHE_DIRECTORY + "PLAYER_PINK.png";
+
+    public enum connectionStatusEnum {NOTSTARTED, REQUESTED, CONNECTED, DISCONNECTED}
 }

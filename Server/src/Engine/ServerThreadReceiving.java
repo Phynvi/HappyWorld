@@ -8,17 +8,19 @@ import java.util.ArrayList;
 
 public class ServerThreadReceiving extends Thread {
 
+    private ServerVariables servVars;
     ArrayList<String> receivedQueue;
 
-    public ServerThreadReceiving(ArrayList<String> received) {
+    public ServerThreadReceiving(ArrayList<String> received, ServerVariables servVars) {
         receivedQueue = received;
+        this.servVars = servVars;
     }
 
     public void run() {
         MulticastSocket socket;
 
         try {
-            socket = new MulticastSocket(4445);
+            socket = new MulticastSocket(ServerConstants.PORT);
             InetAddress group = InetAddress.getByName("230.0.0.1");
             socket.joinGroup(group);
             String received;
@@ -49,6 +51,15 @@ public class ServerThreadReceiving extends Thread {
         if (received.contains("Connection Request"))
         {
             receivedQueue.add("Connection established" + received.split("\\*")[1]); //Connection accepted
+            servVars.players.addPlayer(Integer.parseInt(received.split("\\*")[1]));
+        }
+        else if (received.contains("PlayerCoords"))
+        {
+            //mh.send("PlayerCoords:" + player.getX() + "," + player.getY() + "*" + ServerStats.ClientID);
+            int x = Integer.parseInt(received.split(":")[1].split(",")[0]);
+            int y = Integer.parseInt(received.split(":")[1].split(",")[1]);
+            int clientId = Integer.parseInt(received.split("\\*")[1]);
+            servVars.players.updateLoc(clientId, x, y);
         }
         else
         {

@@ -1,5 +1,7 @@
 package Game.Messages.Connections;
 
+import Game.GameConstants;
+
 import java.io.IOException;
 import java.net.DatagramPacket;
 import java.net.InetAddress;
@@ -23,7 +25,7 @@ public class ClientThreadReceiving extends Thread {
         MulticastSocket socket;
 
         try {
-            socket = new MulticastSocket(4445);
+            socket = new MulticastSocket(GameConstants.PORT);
             InetAddress group = InetAddress.getByName("230.0.0.1");
             socket.joinGroup(group);
             String received;
@@ -45,18 +47,5 @@ public class ClientThreadReceiving extends Thread {
             e.printStackTrace();
         }
 
-    }
-
-    //Deleteme after I'm put in ConnectionHandler
-    private void handle(String received) {
-        if (received.equals("Connection established" + clientID))
-        {
-            ServerStats.isConnected = true;
-            logToReceiveBox.accept("Connection established!");
-        }
-        else
-        {
-            System.out.println("Garbage: " + received);
-        }
     }
 }
