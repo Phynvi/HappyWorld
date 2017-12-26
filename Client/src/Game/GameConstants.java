@@ -11,4 +11,6 @@ public class GameConstants {
     public static final String PLAYER_PINK = CACHE_DIRECTORY + "PLAYER_PINK.png";
 
     public enum connectionStatusEnum {NOTSTARTED, REQUESTED, CONNECTED, DISCONNECTED}
+    public static final String SERVER_SIG = "~SERVER";
+    public static final String CLIENT_SIG = "~CLIENT";
 }

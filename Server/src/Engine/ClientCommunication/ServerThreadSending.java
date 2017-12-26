@@ -1,6 +1,6 @@
-package Engine;
+package Engine.ClientCommunication;
 
-import com.sun.security.ntlm.Server;
+import Engine.GlobalVariables.ServerConstants;
 
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;

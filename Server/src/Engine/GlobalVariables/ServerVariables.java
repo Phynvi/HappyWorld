@@ -1,7 +1,9 @@
-package Engine;
+package Engine.GlobalVariables;
+
+import Engine.GameData.Players;
 
 public class ServerVariables {
-    Players players;
+    public Players players;
     public ServerVariables()
     {
         players = new Players();

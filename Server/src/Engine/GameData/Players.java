@@ -1,4 +1,4 @@
-package Engine;
+package Engine.GameData;
 
 import java.util.ArrayList;
 

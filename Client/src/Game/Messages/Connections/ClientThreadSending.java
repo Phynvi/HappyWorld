@@ -10,13 +10,16 @@ import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.function.Consumer;
 
+import static Game.GameConstants.CLIENT_SIG;
 
+/**
+ * CluentThreadSending decides what to send based on the serverstate in run().
+ */
 public class ClientThreadSending extends Thread {
 
     private final long FIVE_SECONDS = 5000;
     private DatagramSocket socket = null;
     private final int clientID;
-    public static final String CLIENT_SIG = new String("~CLIENT");
     private InetAddress group;
     private Consumer<String> logToSendBox;
 
@@ -49,7 +52,10 @@ public class ClientThreadSending extends Thread {
             group = InetAddress.getByName("230.0.0.1");
 
             sendData("Connection Request*" + clientID);
-        } catch (UnknownHostException e) {
+
+            System.out.println("Sending connection request");
+            sleep(2000);
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
@@ -65,11 +71,6 @@ public class ClientThreadSending extends Thread {
             logToSendBox.accept("Sending: " + dString);
             socket.send(packet);
 
-            // sleep for a while
-            try {
-                sleep(FIVE_SECONDS);
-            } catch (InterruptedException e) {
-            }
         } catch (IOException e) {
             e.printStackTrace();
         }
